@@ -1,0 +1,57 @@
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.card {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  align-items: center;
+
+  img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.info {
+  flex: 1;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+
+  button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #222;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 18px;
+    min-width: 20px;
+    text-align: center;
+  }
+}
+
+.delete {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,0 +1,52 @@
+.flash {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.left {
+  p {
+    color: red;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 40px;
+    margin-top: 5px;
+  }
+
+  .red {
+    display: inline-block;
+    width: 10px;
+    height: 30px;
+    background: red;
+    margin-right: 10px;
+    border-radius: 4px;
+  }
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  div {
+    text-align: center;
+
+    p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: bold;
+    }
+  }
+
+  span {
+    font-size: 30px;
+    color: red;
+  }
+}
