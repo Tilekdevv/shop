@@ -30,7 +30,7 @@ const MainRoutes = () => {
       element: <Contact />,
     },
     {
-      link: "/signUp",
+      link: "/login",
       element: <Login />,
     },
     {

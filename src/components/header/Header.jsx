@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import scss from "./Header.module.scss";
 import search from "../../image/Component 2.svg";
 import heart from "../../image/Wishlist.svg";
 import cart from "../../image/Cart1 with buy.svg";
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <div>
+      {/* Top Bar */}
       <div className={scss.header}>
         <div className={scss.head}>
           <h5>
@@ -22,69 +25,105 @@ const Header = () => {
           <input type="checkbox" />
         </div>
       </div>
+
+      {/* Main Header */}
       <div className="container">
         <div className={scss.header2}>
+          {/* Logo */}
           <div className={scss.header_logo}>
             <h1>Exclusive</h1>
           </div>
+
+          {/* Navigation */}
           <div className={scss.header_nav}>
-            <NavLink to="/">
-              <h3>Home</h3>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/about">About</NavLink>
+            {!user && <NavLink to="/register">Sign Up</NavLink>}
+          </div>
+
+          {/* Icons + Profile */}
+          <div className={scss.header_icons}>
+            {/* Search */}
+            <div style={{ position: "relative" }}>
+              <input type="text" placeholder="What are you looking for?" />
+              <img src={search} alt="search" />
+            </div>
+
+            {/* Wishlist */}
+            <NavLink to="/wishlist">
+              <img src={heart} alt="wishlist" />
             </NavLink>
-            <NavLink to="/contact">
-              <h3>Contact</h3>
+
+            {/* Cart */}
+            <NavLink to="/cart">
+              <img src={cart} alt="cart" />
             </NavLink>
-            <h4>about</h4>
-            <h4>about</h4>
-            <h4>about</h4>
-            <h4>about</h4>
-            <NavLink to="/about">
-              <h3>About</h3>
-            </NavLink>
+
+            {/* Profile Icon - Появляется после логина */}
             {user ? (
-              <div>
+              <div style={{ position: "relative", cursor: "pointer" }}>
                 <img
-                  src={user.photoURL || "https://via.placeholder.com/40"}
-                  alt=""
-                  style={{ width: "40px", borderRadius: "50%" }}
+                  src={user.photoURL || "https://via.placeholder.com/32"}
+                  alt="profile"
+                  style={{
+                    width: "32px",
+                    height: "32px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "2px solid #eee",
+                  }}
+                  onClick={() => setShowDropdown(!showDropdown)}
                 />
-                <button onClick={logout}>Logout</button>
+
+                {/* Dropdown Menu */}
+                {showDropdown && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "45px",
+                      right: "0",
+                      backgroundColor: "white",
+                      boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                      borderRadius: "8px",
+                      padding: "10px 0",
+                      zIndex: 100,
+                      minWidth: "160px",
+                    }}
+                  >
+                    <div style={{ padding: "8px 16px", fontWeight: "500" }}>
+                      {user.email}
+                    </div>
+                    <hr />
+                    <button
+                      onClick={() => {
+                        logout();
+                        setShowDropdown(false);
+                      }}
+                      style={{
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "8px 16px",
+                        background: "none",
+                        border: "none",
+                        color: "#ef4444",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <NavLink to="/signUp">
-                <h3>Sign Up</h3>
+              <NavLink to="/login">
+                <span style={{ fontWeight: "500" }}>Login</span>
               </NavLink>
             )}
-            {/* <NavLink to="/add">
-              <h3>+</h3>
-            </NavLink> */}
           </div>
-          <div className={scss.header_icons}>
-            <input type="text" />
-            <img src={search} alt="" />
-            <NavLink to="/heart">
-              <img src={heart} alt="" />
-            </NavLink>
-            <NavLink to="/cart">
-              <img src={cart} alt="" />
-            </NavLink>
-          </div>
-          {/* {user ? (
-            <div>
-              <img
-                src={user.photoURL}
-                alt=""
-                style={{ width: "40px", borderRadius: "50%" }}
-              />
-              <button onClick={logout}>Logout</button>
-            </div>
-          ) : (
-            <NavLink to="/signUp">
-              <h3>Sign Up</h3>
-            </NavLink>
-          )} */}
         </div>
       </div>
+
       <hr />
     </div>
   );
